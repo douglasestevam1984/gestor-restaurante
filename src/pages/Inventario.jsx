@@ -1,25 +1,18 @@
-import { useState } from "react";
 import { useApp } from "../hooks/useApp.js";
-import { id } from "../utils/format.js";
+import { useCrud } from "../hooks/useCrud.js";
 import { Icon } from "../components/Icon.jsx";
 import { Modal } from "../components/Modal.jsx";
 
+const formVazio = { produto: "", stock: "", unidade: "kg", minimo: "", origem: "Hub Central" };
+
 export default function Inventario() {
   const { inventario, setInventario } = useApp();
-  const [modal, setModal] = useState(false);
-  const [editando, setEditando] = useState(null);
-  const [form, setForm] = useState({ produto: "", stock: "", unidade: "kg", minimo: "", origem: "Hub Central" });
-
-  const abrirNovo = () => { setEditando(null); setForm({ produto: "", stock: "", unidade: "kg", minimo: "", origem: "Hub Central" }); setModal(true); };
-  const abrirEdit = (i) => { setEditando(i.id); setForm({ ...i }); setModal(true); };
-  const fechar = () => setModal(false);
-  const salvar = () => {
-    if (!form.produto || !form.stock) return;
-    if (editando) setInventario(inventario.map(i => i.id === editando ? { ...form, id: editando } : i));
-    else setInventario([...inventario, { ...form, id: id() }]);
-    fechar();
-  };
-  const apagar = (iid) => setInventario(inventario.filter(i => i.id !== iid));
+  const { modal, editando, form, setForm, abrirNovo, abrirEdit, fechar, salvar, apagar } = useCrud({
+    lista: inventario,
+    setLista: setInventario,
+    formVazio,
+    validar: (f) => f.produto && f.stock,
+  });
 
   const getStatus = (i) => {
     const ratio = Number(i.stock) / Number(i.minimo);

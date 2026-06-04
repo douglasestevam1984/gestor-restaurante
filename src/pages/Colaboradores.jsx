@@ -1,25 +1,21 @@
-import { useState } from "react";
 import { useApp } from "../hooks/useApp.js";
-import { fmt, diasAte, hoje, id } from "../utils/format.js";
+import { useCrud } from "../hooks/useCrud.js";
+import { fmt, diasAte, hoje } from "../utils/format.js";
 import { Icon } from "../components/Icon.jsx";
 import { Modal } from "../components/Modal.jsx";
 
+// Funcao (e nao objeto) porque "admissao" usa hoje() — tem de ser
+// recalculado a cada novo registo, nao fixado no carregamento do modulo.
+const formVazio = () => ({ nome: "", cargo: "", salario: "", admissao: hoje(), ferias: "" });
+
 export default function Colaboradores() {
   const { colaboradores, setColaboradores } = useApp();
-  const [modal, setModal] = useState(false);
-  const [editando, setEditando] = useState(null);
-  const [form, setForm] = useState({ nome: "", cargo: "", salario: "", admissao: hoje(), ferias: "" });
-
-  const abrirNovo = () => { setEditando(null); setForm({ nome: "", cargo: "", salario: "", admissao: hoje(), ferias: "" }); setModal(true); };
-  const abrirEdit = (c) => { setEditando(c.id); setForm({ ...c }); setModal(true); };
-  const fechar = () => setModal(false);
-  const salvar = () => {
-    if (!form.nome || !form.salario) return;
-    if (editando) setColaboradores(colaboradores.map(c => c.id === editando ? { ...form, id: editando } : c));
-    else setColaboradores([...colaboradores, { ...form, id: id() }]);
-    fechar();
-  };
-  const apagar = (cid) => setColaboradores(colaboradores.filter(c => c.id !== cid));
+  const { modal, editando, form, setForm, abrirNovo, abrirEdit, fechar, salvar, apagar } = useCrud({
+    lista: colaboradores,
+    setLista: setColaboradores,
+    formVazio,
+    validar: (f) => f.nome && f.salario,
+  });
   const custo = colaboradores.reduce((s, c) => s + Number(c.salario), 0);
 
   return (
