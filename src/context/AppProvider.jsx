@@ -22,8 +22,9 @@ export function AppProvider({ children }) {
   const [despesas, setDespesas] = useStorage("gr_despesas", SEED.despesas);
   const [fornecedores, setFornecedores] = useStorage("gr_fornecedores", SEED.fornecedores);
   const [inventario, setInventario] = useStorage("gr_inventario", SEED.inventario);
+  const [fechos, setFechos] = useStorage("gr_fechos", SEED.fechos);
   return (
-    <AppContext.Provider value={{ colaboradores, setColaboradores, despesas, setDespesas, fornecedores, setFornecedores, inventario, setInventario }}>
+    <AppContext.Provider value={{ colaboradores, setColaboradores, despesas, setDespesas, fornecedores, setFornecedores, inventario, setInventario, fechos, setFechos }}>
       {children}
     </AppContext.Provider>
   );

@@ -7,11 +7,13 @@ import Colaboradores from "./pages/Colaboradores.jsx";
 import Despesas from "./pages/Despesas.jsx";
 import Fornecedores from "./pages/Fornecedores.jsx";
 import Inventario from "./pages/Inventario.jsx";
+import Financeiro from "./pages/Financeiro.jsx";
 
 const PAGES = [
   { key: "dashboard", label: "Dashboard", icon: "dashboard" },
   { key: "colaboradores", label: "Colaboradores", icon: "users" },
   { key: "despesas", label: "Despesas", icon: "receipt" },
+  { key: "financeiro", label: "Financeiro", icon: "coins" },
   { key: "fornecedores", label: "Fornecedores", icon: "truck" },
   { key: "inventario", label: "Inventário", icon: "box" },
 ];
@@ -30,6 +32,7 @@ export default function App() {
     if (page === "dashboard") return <Dashboard />;
     if (page === "colaboradores") return <Colaboradores />;
     if (page === "despesas") return <Despesas />;
+    if (page === "financeiro") return <Financeiro />;
     if (page === "fornecedores") return <Fornecedores />;
     if (page === "inventario") return <Inventario />;
   };

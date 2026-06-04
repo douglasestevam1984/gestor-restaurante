@@ -27,4 +27,15 @@ export const SEED = {
     { id: 3, produto: "Cerveja (cx)", stock: 12, unidade: "cx", minimo: 15, origem: "Hub Central" },
     { id: 4, produto: "Azeite (L)", stock: 8, unidade: "L", minimo: 10, origem: "Hub Central" },
   ],
+  // Fechos de caixa diarios: dinheiro + cartao (sistema vs maquina TPA)
+  fechos: [
+    { id: 1, data: "2026-06-03", dinheiro: 420, cartaoSistema: 680, cartaoMaquina: 680, notas: "" },
+    { id: 2, data: "2026-06-02", dinheiro: 380, cartaoSistema: 540, cartaoMaquina: 525, notas: "Diferença a verificar no TPA" },
+    { id: 3, data: "2026-06-01", dinheiro: 510, cartaoSistema: 720, cartaoMaquina: 720, notas: "" },
+    { id: 4, data: "2026-05-31", dinheiro: 600, cartaoSistema: 890, cartaoMaquina: 890, notas: "Sábado" },
+    { id: 5, data: "2026-05-30", dinheiro: 450, cartaoSistema: 610, cartaoMaquina: 610, notas: "" },
+    { id: 6, data: "2026-05-15", dinheiro: 390, cartaoSistema: 480, cartaoMaquina: 495, notas: "" },
+    { id: 7, data: "2025-12-31", dinheiro: 1200, cartaoSistema: 1800, cartaoMaquina: 1800, notas: "Passagem de ano" },
+    { id: 8, data: "2025-12-20", dinheiro: 700, cartaoSistema: 950, cartaoMaquina: 950, notas: "" },
+  ],
 };
