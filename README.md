@@ -1,121 +1,101 @@
-# 🍽️ Restaurant Manager
+# 🍽️ Gestor de Restaurante
 
-A web-based management system for restaurants — built in React to solve real operational problems.
+A web app for managing the day-to-day operations of a restaurant — staff,
+expenses, suppliers and inventory — centralized in a single dashboard.
 
----
+🔗 **Live demo:** https://douglasestevam1984.github.io/gestor-restaurante
 
-## 🚀 Live Demo
-
-🔗 **[View Live Project](https://douglasestevam1984.github.io/gestor-restaurante)**
-
-![Dashboard Preview](./preview.png)
+![Preview](./preview.png)
 
 ---
 
-## 💡 Background
+## About
 
-This project was born from a real problem: managing a restaurant group with no centralized tool to track staff, expenses, suppliers, and inventory.
-
-The app consolidates the entire operation into a single dashboard — designed to be simple, fast, and practical for daily use.
-
----
-
-## 🧠 Features
-
-### 📊 Dashboard
-
-- Real-time KPIs: team size, monthly cost, pending expenses, and active alerts
-- Automatic alerts for upcoming due dates (≤7 days)
-- Expenses breakdown chart by category
-- Live alert badge on sidebar navigation
-
-### 👥 Staff
-
-- Full records: name, role, salary, hire date, and vacation schedule
-- Automatic monthly payroll cost calculation
-- Upcoming vacation alerts
-- Full CRUD with modal form
-
-### 💸 Expenses
-
-- Records with category, supplier, and due date
-- Filter by status: all / pending / paid
-- Mark as paid with a single click
-- Color-coded urgency: overdue / ≤3 days / ≤7 days
-
-### 🏢 Suppliers
-
-- Centralized partner database
-- Organized by category
-- Full CRUD
-
-### 📦 Inventory _(key differentiator)_
-
-- Stock tracking per product and unit
-- Configurable minimum stock with automatic alerts
-- Visual stock level bar per product
-- Origin tracking (Central Hub / Restaurant branch)
+Built to solve a real problem: restaurant owners struggle to keep track of
+their team, expenses and important deadlines. The app centralizes that
+information in one simple, visual interface with priority alerts.
 
 ---
 
-## 🛠️ Tech Stack
+## Features
 
-| Technology   | Usage                                 |
-| ------------ | ------------------------------------- |
-| React 18     | UI and state management               |
-| Vite         | Build tool and dev server             |
-| Context API  | Shared global state                   |
-| LocalStorage | In-browser data persistence           |
-| Custom CSS   | Styling with no external dependencies |
+- **Staff (Colaboradores)** — manage employees, salaries, hire and vacation
+  dates, with automatic monthly payroll cost
+- **Expenses (Despesas)** — register expenses, link them to suppliers, track
+  due dates and mark as paid, with visual deadline alerts
+- **Suppliers (Fornecedores)** — central directory of partners organized by
+  category
+- **Inventory (Inventário)** — stock levels with minimum thresholds and
+  low-stock warnings
+- **Dashboard** — overview of headcount, payroll cost, pending expenses and
+  priority alerts
 
 ---
 
-## 🏗️ Architecture
+## Tech stack
+
+- **React 19**
+- **Vite** (build tool / dev server)
+- **Context API** for global state
+- **localStorage** for data persistence
+- Plain CSS (custom properties / design tokens)
+
+---
+
+## Project structure
 
 ```
 src/
-└── App.jsx
-    ├── AppContext     # Global state (Context API)
-    ├── useStorage     # Persistence hook (LocalStorage)
-    ├── Dashboard      # Overview page
-    ├── Staff          # Team CRUD
-    ├── Expenses       # Financial CRUD
-    ├── Suppliers      # Partners CRUD
-    └── Inventory      # Stock control
+├── App.jsx              # layout: sidebar, topbar, page routing
+├── main.jsx             # entry point + providers
+├── index.css           # global styles and design tokens
+├── constants.js        # shared constants
+├── data/
+│   └── seed.js          # initial demo data
+├── utils/
+│   └── format.js        # formatting helpers (currency, dates)
+├── context/
+│   ├── AppContext.js    # the Context object
+│   └── AppProvider.jsx  # provider + localStorage state
+├── hooks/
+│   └── useApp.js        # hook to consume global state
+├── components/
+│   ├── Icon.jsx         # inline SVG icon set
+│   └── Modal.jsx        # reusable modal
+└── pages/
+    ├── Dashboard.jsx
+    ├── Colaboradores.jsx
+    ├── Despesas.jsx
+    ├── Fornecedores.jsx
+    └── Inventario.jsx
 ```
-
-Global state is managed via Context API with automatic LocalStorage persistence. Seed data loads on first visit so the app is immediately demonstrable without any setup.
 
 ---
 
-## 💻 Running Locally
+## Running locally
 
 ```bash
-git clone https://github.com/douglasestevam1984/gestor-restaurante.git
-cd gestor-restaurante
 npm install
-npm run dev
+npm run dev      # start the dev server
+npm run build    # production build
+npm run lint     # run ESLint
 ```
 
-Open `http://localhost:5173` — demo data loads automatically.
+---
+
+## Roadmap
+
+- Backend integration (Node.js / Firebase)
+- User authentication
+- Email notifications
+- Further mobile optimization
 
 ---
 
-## 📌 Roadmap
+## About me
 
-- [ ] Split components into individual files
-- [ ] Add React Router for URL-based navigation
-- [ ] Stock transfer module between restaurant branches
-- [ ] Backend integration (Node.js / Supabase)
-- [ ] User authentication
-- [ ] PDF report export
+Civil engineer transitioning into frontend development. This project is part
+of my portfolio, focused on solving real problems with simple, effective
+solutions.
 
----
-
-## 🙋‍♂️ About
-
-Civil engineer transitioning into Frontend Development, with 13+ years of experience in project management and team leadership.
-
-This project combines hands-on restaurant management experience with software development — the problem I'm solving is one I know from the inside.
-
-📎 [LinkedIn](https://www.linkedin.com/in/douglasestevamdev) · 📂 [Portfolio](https://douglasestevam1984.github.io)
+**LinkedIn:** https://www.linkedin.com/in/douglasestevamdev
