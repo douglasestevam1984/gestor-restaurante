@@ -1,25 +1,18 @@
-import { useState } from "react";
 import { useApp } from "../hooks/useApp.js";
-import { id } from "../utils/format.js";
+import { useCrud } from "../hooks/useCrud.js";
 import { Icon } from "../components/Icon.jsx";
 import { Modal } from "../components/Modal.jsx";
 
+const formVazio = { nome: "", categoria: "", contacto: "", email: "" };
+
 export default function Fornecedores() {
   const { fornecedores, setFornecedores } = useApp();
-  const [modal, setModal] = useState(false);
-  const [editando, setEditando] = useState(null);
-  const [form, setForm] = useState({ nome: "", categoria: "", contacto: "", email: "" });
-
-  const abrirNovo = () => { setEditando(null); setForm({ nome: "", categoria: "", contacto: "", email: "" }); setModal(true); };
-  const abrirEdit = (f) => { setEditando(f.id); setForm({ ...f }); setModal(true); };
-  const fechar = () => setModal(false);
-  const salvar = () => {
-    if (!form.nome) return;
-    if (editando) setFornecedores(fornecedores.map(f => f.id === editando ? { ...form, id: editando } : f));
-    else setFornecedores([...fornecedores, { ...form, id: id() }]);
-    fechar();
-  };
-  const apagar = (fid) => setFornecedores(fornecedores.filter(f => f.id !== fid));
+  const { modal, editando, form, setForm, abrirNovo, abrirEdit, fechar, salvar, apagar } = useCrud({
+    lista: fornecedores,
+    setLista: setFornecedores,
+    formVazio,
+    validar: (f) => f.nome,
+  });
 
   return (
     <div className="page">

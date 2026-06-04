@@ -1,27 +1,25 @@
 import { useState } from "react";
 import { useApp } from "../hooks/useApp.js";
-import { fmt, diasAte, hoje, id } from "../utils/format.js";
+import { useCrud } from "../hooks/useCrud.js";
+import { fmt, diasAte, hoje } from "../utils/format.js";
 import { Icon } from "../components/Icon.jsx";
 import { Modal } from "../components/Modal.jsx";
 import { CATEGORIAS } from "../constants.js";
 
+// Funcao porque "vencimento" usa hoje() — recalculado a cada novo registo.
+const formVazio = () => ({ descricao: "", valor: "", vencimento: hoje(), pago: false, fornecedor: "", categoria: "Outro" });
+
 export default function Despesas() {
   const { despesas, setDespesas, fornecedores } = useApp();
-  const [modal, setModal] = useState(false);
-  const [editando, setEditando] = useState(null);
-  const [form, setForm] = useState({ descricao: "", valor: "", vencimento: hoje(), pago: false, fornecedor: "", categoria: "Outro" });
+  const { modal, editando, form, setForm, abrirNovo, abrirEdit, fechar, salvar, apagar } = useCrud({
+    lista: despesas,
+    setLista: setDespesas,
+    formVazio,
+    validar: (f) => f.descricao && f.valor,
+  });
   const [filtro, setFiltro] = useState("todas");
 
-  const abrirNovo = () => { setEditando(null); setForm({ descricao: "", valor: "", vencimento: hoje(), pago: false, fornecedor: "", categoria: "Outro" }); setModal(true); };
-  const abrirEdit = (d) => { setEditando(d.id); setForm({ ...d }); setModal(true); };
-  const fechar = () => setModal(false);
-  const salvar = () => {
-    if (!form.descricao || !form.valor) return;
-    if (editando) setDespesas(despesas.map(d => d.id === editando ? { ...form, id: editando } : d));
-    else setDespesas([...despesas, { ...form, id: id() }]);
-    fechar();
-  };
-  const apagar = (did) => setDespesas(despesas.filter(d => d.id !== did));
+  // Especifico desta pagina: alternar o estado pago/pendente
   const togglePago = (did) => setDespesas(despesas.map(d => d.id === did ? { ...d, pago: !d.pago } : d));
 
   const lista = despesas.filter(d => {
