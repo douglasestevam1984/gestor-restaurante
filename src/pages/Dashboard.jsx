@@ -24,21 +24,25 @@ export default function Dashboard() {
       </div>
       <div className="kpi-grid">
         <div className="kpi accent">
+          <div className="kpi-icon"><Icon name="users" size={18} /></div>
           <div className="kpi-label">Equipa</div>
           <div className="kpi-value">{colaboradores.length}</div>
           <div className="kpi-sub">colaboradores activos</div>
         </div>
         <div className="kpi">
+          <div className="kpi-icon"><Icon name="coins" size={18} /></div>
           <div className="kpi-label">Custo Mensal</div>
           <div className="kpi-value">{fmt(custoMensal)}</div>
           <div className="kpi-sub">salários</div>
         </div>
         <div className="kpi danger">
+          <div className="kpi-icon"><Icon name="receipt" size={18} /></div>
           <div className="kpi-label">Pendentes</div>
           <div className="kpi-value">{fmt(pendentes)}</div>
           <div className="kpi-sub">{despesas.filter(d => !d.pago).length} em aberto</div>
         </div>
-        <div className="kpi" style={{ borderColor: totalAlertas > 0 ? "rgba(224,85,85,0.4)" : undefined }}>
+        <div className="kpi" style={{ borderColor: totalAlertas > 0 ? "rgba(224,98,90,0.4)" : undefined }}>
+          <div className="kpi-icon"><Icon name="alert" size={18} /></div>
           <div className="kpi-label">Alertas</div>
           <div className="kpi-value" style={{ color: totalAlertas > 0 ? "var(--danger)" : "var(--success)" }}>{totalAlertas}</div>
           <div className="kpi-sub">≤7 dias · {stockBaixo} stock</div>
@@ -66,19 +70,16 @@ export default function Dashboard() {
         </div>
         <div className="card">
           <div className="card-header"><Icon name="wallet" size={14} /> Despesas por Categoria</div>
-          <div className="chart-bars">
+          <div className="hbars">
             {barData.map(b => (
-              <div className="chart-bar-wrap" key={b.label}>
-                <div className="chart-bar" style={{ height: `${(b.value / maxVal) * 64 + 4}px` }} title={fmt(b.value)} />
-                <div className="chart-label">{b.label}</div>
-              </div>
-            ))}
-          </div>
-          <div style={{ marginTop: 12 }}>
-            {barData.map(b => (
-              <div key={b.label} style={{ display: "flex", justifyContent: "space-between", fontSize: 12, padding: "4px 0", borderBottom: "1px solid var(--border)" }}>
-                <span className="text-muted">{b.full}</span>
-                <span>{fmt(b.value)}</span>
+              <div className="hbar-row" key={b.label}>
+                <div className="hbar-head">
+                  <span>{b.full}</span>
+                  <span className="hbar-value">{fmt(b.value)}</span>
+                </div>
+                <div className="hbar-track">
+                  <div className="hbar-fill" style={{ width: `${(b.value / maxVal) * 100}%` }} />
+                </div>
               </div>
             ))}
           </div>
